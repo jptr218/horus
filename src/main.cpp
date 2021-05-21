@@ -55,16 +55,7 @@ int main(int argc, char* argv[])
 	}
 
 	cout << "Stats:" << endl;
-	StartSniffing(sniffer);
-
-	closesocket(sniffer);
-	WSACleanup();
-
-	return 0;
-}
-
-void StartSniffing(SOCKET sniffer)
-{
+	
 	char* Buffer = (char*)malloc(65536);
 	int mangobyte;
 
@@ -89,10 +80,13 @@ void StartSniffing(SOCKET sniffer)
 		}
 	} while (mangobyte > 0);
 
-	free(Buffer);
+	closesocket(sniffer);
+	WSACleanup();
+
+	return 0;
 }
 
-void ProcessPacket(char* Buffer, int Size)
+void process(char* Buffer, int Size)
 {
 	IPV4_HDR* iphdr = (IPV4_HDR*)Buffer;
 	++total;
@@ -101,19 +95,19 @@ void ProcessPacket(char* Buffer, int Size)
 	{
 	case 1:
 		++icmp;
-		PrintIcmpPacket(Buffer, Size, logfile);
+		printIcmp(Buffer, Size, logfile);
 		break;
 	case 2:
-		PrintIgmpPacket(Buffer, Size, logfile);
+		printIgmp(Buffer, Size, logfile);
 		++igmp;
 		break;
 	case 6:
 		++tcp;
-		PrintTcpPacket(Buffer, Size, logfile);
+		printTcp(Buffer, Size, logfile);
 		break;
 	case 17:
 		++udp;
-		PrintUdpPacket(Buffer, Size, logfile);
+		printUdp(Buffer, Size, logfile);
 		break;
 	default:
 		++others;
@@ -122,7 +116,7 @@ void ProcessPacket(char* Buffer, int Size)
 	printf("TCP : %d UDP : %d ICMP : %d IGMP : %d Others : %d Total : %d\r", tcp, udp, icmp, igmp, others, total);
 }
 
-void PrintData(char* data, int Size)
+void print(char* data, int Size)
 {
 	char a, line[17];
 
