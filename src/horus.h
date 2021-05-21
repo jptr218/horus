@@ -19,9 +19,9 @@ using namespace std;
 
 void StartSniffing(SOCKET Sock);
 
-void ProcessPacket(char*, int);
-void PrintIgmpPacket(char* Buffer, int size, FILE* log);
-void PrintIcmpPacket(char*, int, FILE* log);
-void PrintUdpPacket(char*, int, FILE* log);
-void PrintTcpPacket(char*, int, FILE* log);
-void PrintData(char*, int);
+void process(char*, int);
+void printIgmp(char* Buffer, int size, FILE* log);
+void printIcmp(char*, int, FILE* log);
+void printUdp(char*, int, FILE* log);
+void printTcp(char*, int, FILE* log);
+void print(char*, int);
