@@ -1,6 +1,6 @@
 #include "horus.h"
 
-void PrintIgmpPacket(char* Buffer, int size, FILE* log) {
+void printIgmp(char* Buffer, int size, FILE* log) {
 	sockaddr_in dest;
 	IPV4_HDR* iphdr = (IPV4_HDR*)Buffer;
 
@@ -10,7 +10,7 @@ void PrintIgmpPacket(char* Buffer, int size, FILE* log) {
 	fprintf(log, "--IGMP-->%s\n", inet_ntoa(dest.sin_addr));
 }
 
-void PrintTcpPacket(char* Buffer, int Size, FILE* log)
+void printTcp(char* Buffer, int Size, FILE* log)
 {
 	unsigned short iphdrlen;
 	sockaddr_in dest;
@@ -26,7 +26,7 @@ void PrintTcpPacket(char* Buffer, int Size, FILE* log)
 	fprintf(log, "\n");
 }
 
-void PrintUdpPacket(char* Buffer, int Size, FILE* log)
+void printUdp(char* Buffer, int Size, FILE* log)
 {
 	unsigned short iphdrlen;
 	sockaddr_in dest;
@@ -42,7 +42,7 @@ void PrintUdpPacket(char* Buffer, int Size, FILE* log)
 	fprintf(log, "\n");
 }
 
-void PrintIcmpPacket(char* Buffer, int Size, FILE* log)
+void printIcmp(char* Buffer, int Size, FILE* log)
 {
 	unsigned short iphdrlen;
 	sockaddr_in dest;
